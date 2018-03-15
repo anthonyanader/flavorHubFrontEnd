@@ -8,8 +8,8 @@ import Button from 'material-ui/Button';
 import Grid from 'material-ui/Grid';
 import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
 import NavBar from './layouts/NavBar';
+import MiddleNavBar from './layouts/MiddleNavBar';
 import Restaurant from './components/Restaurant';
-
 
 class ContentArea extends Component {
   render() {
@@ -42,6 +42,9 @@ class RestaurantContentArea extends Component {
     return (
       <div className="restaurantContentArea">
         <div className="restaurantImageBanner">
+        </div>
+        <div>
+          <MiddleNavBar/>
         </div>
       </div>
     )
