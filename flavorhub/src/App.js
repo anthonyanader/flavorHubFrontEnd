@@ -1,29 +1,15 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
+import Route from 'react-router-dom/Route';
 import './App.css';
-import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import Grid from 'material-ui/Grid';
-import Paper from 'material-ui/Paper';
 import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
+import NavBar from './layouts/NavBar';
+import Restaurant from './components/Restaurant';
 
-class NavBar extends Component {
-  render() {
-    return (
-      <AppBar className="navBarAppBar" position="static">
-         <Toolbar className="navBarToolBar">
-           <Typography className="navBarLogo" variant="title" style={{flex: 1}}>
-             <span className="navBarFlavorLogo">Flavor</span>
-             <span className="navBarHubLogo">Hub</span>
-           </Typography>
-           <Button className="navBarLogin" size="small" variant="raised">Sign in</Button>
-           <Button className="navBarRegister" size="small" variant="raised">Register</Button>
-         </Toolbar>
-       </AppBar>
-    )
-  }
-}
 
 class SplashContentArea extends Component {
   render() {
@@ -64,7 +50,7 @@ class RestaurantCard extends Component {
       "https://www.pixelstalk.net/wp-content/uploads/2016/08/HD-delicious-food-photos.jpg"
     ]
     return (
-      <div>
+      <div id="restaurant-card-preview">
         <Card className="restaurantCard" style={{minHeight: 300, width: 380}}>
           <CardMedia
             style={{height: 200}}
@@ -81,6 +67,7 @@ class RestaurantCard extends Component {
             <Typography className="restaurantCardLocations">
               X locations
             </Typography>
+            <Link to="/restaurant">View Restaurant</Link>
           </CardContent>
         </Card>
       </div>
@@ -107,14 +94,25 @@ class SearchBar extends Component {
 }
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App" style={{flexGrow: 1}}>
-        <NavBar/>
-        <SplashContentArea/>
-      </div>
-    );
-  }
+    render() {
+        return (
+            <Router>
+                <div className="App" style={{flexGrow: 1}}>
+                    <Route path="/" exact render={
+                            () => {
+                                return (
+                                    <div>
+                                        <NavBar/>
+                                        <SplashContentArea/>
+                                    </div>
+                                );
+                            }
+                        }/>
+                    <Route path="/restaurant" exact component={Restaurant}/>
+                </div>
+            </Router>
+        );
+    }
 }
 
 export default App;

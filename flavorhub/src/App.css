@@ -5,6 +5,9 @@
 .App .navBarAppBar {
 
 }
+/******************************
+    CARDS RELATED STYLES
+******************************/
 
 .App .searchBarContainer {
   display: flex;
@@ -22,7 +25,7 @@
 
 .App .navBarAppBar .navBarToolBar {
   min-height: 90px;
-  background-color: white;
+  background-color: #FFFFFF;
   padding-left: 45px;
   padding-right: 45px;
 }
@@ -32,7 +35,7 @@
 }
 
 .navBarToolBar .navBarLogo .navBarFlavorLogo {
-  color: #48B4EE;
+  color: #262626;
 }
 
 .navBarToolBar .navBarLogo .navBarHubLogo {
@@ -45,7 +48,8 @@
   text-transform: none;
   background-color: transparent;
   box-shadow: none;
-  border: 1px solid #d3d3d3;
+  border: 1px solid #E0E0E0;
+  border-radius: 2px;
 }
 
 .navBarToolBar .navBarLogin:hover {
@@ -56,10 +60,11 @@
   margin-left: 10px;
   padding: 0 20px 0 20px;
   text-transform: none;
-  background-color: black;
+  background-color: #262626;
   box-shadow: none;
   border: 1px solid black;
   color: white;
+  border-radius: 2px;
 }
 
 .navBarToolBar .navBarRegister:hover {
