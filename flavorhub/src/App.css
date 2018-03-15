@@ -15,11 +15,19 @@
   align-items: center;
 }
 
-.App .splashContentArea {
+.App .contentArea {
   padding: 50px 70px 0 70px;
 }
 
-.App .RestaurantGridContainer {
+.App .contentArea .restaurantContentArea {
+
+}
+
+.App .contentArea .splashContentArea {
+
+}
+
+.App .contentArea .RestaurantGridContainer {
   padding: 55px 0 0 0;
 }
 
@@ -117,4 +125,13 @@
 ::-webkit-input-placeholder {
   color: #e1e1e1;
   font-size: 20px;
+}
+
+.RestaurantGridContainer .restaurantCard .restaurantCardText:hover {
+  -webkit-transition: background-color .35s ease-in-out;
+  transition: background-color .35s ease-in-out;
+}
+
+.restaurantCard .restaurantCardText:hover {
+    background-color: #F9F9F9;
 }
