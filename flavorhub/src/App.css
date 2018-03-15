@@ -1,28 +1,115 @@
 .App {
-  text-align: center;
+
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.App .navBarAppBar {
+
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
+.App .searchBarContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.App .splashContentArea {
+  padding: 50px 70px 0 70px;
+}
+
+.App .RestaurantGridContainer {
+  padding: 55px 0 0 0;
+}
+
+.App .navBarAppBar .navBarToolBar {
+  min-height: 90px;
+  background-color: white;
+  padding-left: 45px;
+  padding-right: 45px;
+}
+
+.navBarAppBar .navBarToolBar .navBarLogo {
+  font-size: 40px;
+}
+
+.navBarToolBar .navBarLogo .navBarFlavorLogo {
+  color: #48B4EE;
+}
+
+.navBarToolBar .navBarLogo .navBarHubLogo {
+  color: salmon;
+}
+
+.navBarToolBar .navBarLogin {
+  margin-right: 10px;
+  padding: 0 20px 0 20px;
+  text-transform: none;
+  background-color: transparent;
+  box-shadow: none;
+  border: 1px solid #d3d3d3;
+}
+
+.navBarToolBar .navBarLogin:hover {
+  background-color: #f1f1f1;
+}
+
+.navBarToolBar .navBarRegister {
+  margin-left: 10px;
+  padding: 0 20px 0 20px;
+  text-transform: none;
+  background-color: black;
+  box-shadow: none;
+  border: 1px solid black;
   color: white;
 }
 
-.App-title {
-  font-size: 1.5em;
+.navBarToolBar .navBarRegister:hover {
+  background-color: black;
 }
 
-.App-intro {
-  font-size: large;
+
+.searchBarContainer .searchBarUpperTextContainer {
+  padding: 0 0 10px 0;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.searchBarContainer .searchBarInputRegion {
+  display: flex;
+  flex-direction: row;
+  width: 55%;
+}
+
+.searchBarContainer .searchBarUpperTextContainer .searchBarUpperText {
+  font-size: 25px;
+}
+
+.searchBarContainer .searchBarInputRegion .searchBarSearchButton {
+  background-color: salmon;
+  color: white;
+  padding: 0 30px 0 30px;
+  min-height: 34px;
+  box-shadow: none;
+  font-size: 15px;
+  text-transform: none;
+}
+
+.searchBarContainer .searchBarInputRegion .searchBarrestaurantSearch {
+  padding: 10px;
+  width: 100%;
+  margin: 0 20px 0 0;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  border-style: none;
+  border-bottom: 1px solid #f1f1f1;
+  font-size: 20px;
+
+  -webkit-transition: border-bottom .35s ease-in-out;
+  transition: border-bottom .35s ease-in-out;
+}
+
+.searchBarContainer .searchBarInputRegion .searchBarrestaurantSearch:focus {
+  outline: none;
+  border-bottom: 1px solid #b1b1b1;
+}
+
+::-webkit-input-placeholder {
+  color: #e1e1e1;
+  font-size: 20px;
 }
