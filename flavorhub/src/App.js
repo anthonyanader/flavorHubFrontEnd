@@ -32,7 +32,6 @@ class SplashContentArea extends Component {
         <SearchBar/>
         <RestaurantGrid/>
       </div>
-
     )
   }
 }
@@ -42,7 +41,7 @@ class RestaurantGrid extends Component {
     //Here the request happens to get x ammount of restaurants
     return (
       <Grid container className="RestaurantGridContainer" justify="center" style={{flexGrow: 1}} spacing="40">
-        {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(value => (
+        {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 20, 11, 1234567].map(value => (
           <Grid key={value} item>
             <RestaurantCard/>
           </Grid>
