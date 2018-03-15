@@ -9,12 +9,12 @@ class NavBar extends Component {
     return (
       <AppBar className="navBarAppBar" position="static">
          <Toolbar className="navBarToolBar">
-           <Typography className="navBarLogo" variant="title" style={{flex: 1}}>
-             <span className="navBarFlavorLogo">Flavor</span>
-             <span className="navBarHubLogo">Hub</span>
-           </Typography>
-           <Button className="navBarLogin" size="small" variant="raised">Sign in</Button>
-           <Button className="navBarRegister" size="small" variant="raised">Register</Button>
+            <Typography className="navBarLogo" variant="title" style={{flex: 1}}>
+                <span className="navBarFlavorLogo">Flavor</span>
+                <span className="navBarHubLogo">Hub</span>
+            </Typography>
+            <Button className="navBarLogin" size="small" variant="raised">Sign in</Button>
+            <Button className="navBarRegister" size="small" variant="raised">Register</Button>
          </Toolbar>
        </AppBar>
    );
