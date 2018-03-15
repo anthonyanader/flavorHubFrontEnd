@@ -11,12 +11,38 @@ import NavBar from './layouts/NavBar';
 import Restaurant from './components/Restaurant';
 
 
+class ContentArea extends Component {
+  render() {
+    return (
+      <div className="contentArea">
+        <Router>
+          <div>
+            <Route exact path="/" component={SplashContentArea} />
+            <Route path="/restaurant" component={RestaurantContentArea} />
+          </div>
+        </Router>
+      </div>
+    )
+  }
+}
+
 class SplashContentArea extends Component {
   render() {
     return (
       <div className="splashContentArea">
         <SearchBar/>
         <RestaurantGrid/>
+      </div>
+    )
+  }
+}
+
+class RestaurantContentArea extends Component {
+  render() {
+    return (
+      <div className="restaurantContentArea">
+        <div className="restaurantImageBanner">
+        </div>
       </div>
     )
   }
@@ -29,7 +55,9 @@ class RestaurantGrid extends Component {
       <Grid container className="RestaurantGridContainer" justify="center" style={{flexGrow: 1}} spacing="40">
         {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 20, 11, 1234567].map(value => (
           <Grid key={value} item>
-            <RestaurantCard/>
+            <Link to={"/restaurant/"+value} style={{textDecoration: "none"}}>
+              <RestaurantCard/>
+            </Link>
           </Grid>
         ))}
       </Grid>
@@ -49,9 +77,9 @@ class RestaurantCard extends Component {
       "https://www.pixelstalk.net/wp-content/uploads/2016/08/HD-delicious-food-photos.jpg"
     ]
     return (
-      <div id="restaurant-card-preview">
+      <div>
         <Card className="restaurantCard" style={{minHeight: 300, width: 380}}>
-          <CardMedia
+          <CardMedia className="restaurantCardImage"
             style={{height: 200}}
             image={imgArray[Math.floor(Math.random() * 7)]}
             title="Restaurant X"
@@ -66,7 +94,6 @@ class RestaurantCard extends Component {
             <Typography className="restaurantCardLocations">
               X locations
             </Typography>
-            <Link to="/restaurant">View Restaurant</Link>
           </CardContent>
         </Card>
       </div>
@@ -93,25 +120,14 @@ class SearchBar extends Component {
 }
 
 class App extends Component {
-    render() {
-        return (
-            <Router>
-                <div className="App" style={{flexGrow: 1}}>
-                    <Route path="/" exact render={
-                            () => {
-                                return (
-                                    <div>
-                                        <NavBar/>
-                                        <SplashContentArea/>
-                                    </div>
-                                );
-                            }
-                        }/>
-                    <Route path="/restaurant" exact component={Restaurant}/>
-                </div>
-            </Router>
-        );
-    }
+  render() {
+    return (
+      <div className="App">
+        <NavBar/>
+        <ContentArea/>
+      </div>
+    )
+  }
 }
 
 export default App;
