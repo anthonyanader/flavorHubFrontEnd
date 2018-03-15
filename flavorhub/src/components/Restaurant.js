@@ -10,7 +10,7 @@ class Restaurant extends Component {
         return(
             <div>
                 <NavBar/>
-                <div className="resto-splash-img" style={{display:'block', backgroundImage:'url('+restaurantImgUrl+')', minHeight: 400, width: '100%'}}></div>
+                <div className="resto-splash-img" style={{backgroundImage:'url('+restaurantImgUrl+')'}}></div>
             </div>
         );
     }

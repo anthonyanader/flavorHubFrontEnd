@@ -1,0 +1,9 @@
+.resto-splash-img {
+    width: 100vw;
+    height: 400px;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+}
