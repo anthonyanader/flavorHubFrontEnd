@@ -16,7 +16,6 @@
 }
 
 .App .contentArea {
-  padding: 50px 70px 0 70px;
 }
 
 .App .contentArea .restaurantContentArea {
@@ -24,7 +23,7 @@
 }
 
 .App .contentArea .splashContentArea {
-
+  padding: 50px 70px 0 70px;
 }
 
 .App .contentArea .RestaurantGridContainer {
@@ -134,4 +133,25 @@
 
 .restaurantCard .restaurantCardText:hover {
     background-color: #F9F9F9;
+}
+
+.restaurantContentArea .restaurantImageBannerContainer {
+    width: 100%;
+    height: 350px;
+}
+
+.restaurantImageBannerContainer .restaurantImageBannerImage {
+  width: 100%;
+  height: 100%;
+}
+
+.restaurantContentArea .restaurantContentAreaInformationBox {
+  max-width: 350px;
+  min-height: 150px;
+  margin: 50px 70px 0 70px;
+}
+
+.restaurantContentAreaInformationBox .restaurantContentAreaRestaurantName {
+  font-size: 25px;
+  padding: 0 0 20px 0;
 }
