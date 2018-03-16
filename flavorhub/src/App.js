@@ -11,7 +11,7 @@ import NavBar from './layouts/NavBar';
 import MiddleNavBar from './layouts/MiddleNavBar';
 import Restaurant from './components/Restaurant';
 import SearchBar from './layouts/SearchBar';
-
+import AuthenticationModal from './layouts/AuthenticationModal';
 
 const imgArray = [
   "https://www.pixelstalk.net/wp-content/uploads/2016/08/Food-Images-For-Desktop.jpg",
@@ -25,6 +25,12 @@ const imgArray = [
 
 
 class ContentArea extends Component {
+
+  shouldComponentUpdate(nextProps, nextState) {
+    //fix this when you will need to update this component on app change
+    return false
+  }
+
   render() {
     return (
       <div className="contentArea">
@@ -83,7 +89,7 @@ class RestaurantGrid extends Component {
   render() {
     //Here the request happens to get x ammount of restaurants
     return (
-      <Grid container className="RestaurantGridContainer" justify="center" style={{flexGrow: 1}} spacing="40">
+      <Grid container className="RestaurantGridContainer" justify="center" style={{flexGrow: 1}} spacing={40}>
         {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 20, 11, 1234567].map(value => (
           <Grid key={value} item>
             <Link to={"/restaurant/"+value} style={{textDecoration: "none"}}>
@@ -129,7 +135,19 @@ class App extends Component {
     super(props)
     this.state = {
       'displaySearchBar': window.location.pathname !== '/',
+      'openRegistration': false,
+      'openSignIn': false,
+      'type': 'register'
     }
+  }
+
+  onBackButtonEvent = (e) => {
+    e.preventDefault();
+    this.contentChange('/');
+  }
+
+  componentDidMount = () => {
+    window.onpopstate = this.onBackButtonEvent;
   }
 
   contentChange = (navTo) => {
@@ -138,10 +156,24 @@ class App extends Component {
     })
   }
 
+  openAuthModal = (type) => {
+    this.setState({
+      'openRegistration': true,
+      'type': type
+    })
+  }
+
+  closeAuthModal = () => {
+    this.setState({
+      'openRegistration': false
+    })
+  }
+
   render() {
     return (
       <div className="App">
-        <NavBar displaySearchBar={this.state.displaySearchBar} contentChange={this.contentChange.bind(this)}/>
+        <AuthenticationModal type={this.state.type} open={this.state.openRegistration} onClose={this.closeAuthModal.bind(this)}/>
+        <NavBar displaySearchBar={this.state.displaySearchBar} openAuthModal={this.openAuthModal.bind(this)} contentChange={this.contentChange.bind(this)}/>
         <ContentArea contentChange={this.contentChange.bind(this)}/>
       </div>
     )
