@@ -5,8 +5,17 @@ import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import SearchBar from './SearchBar'
 import { BrowserRouter as Router, Link } from 'react-router-dom';
+import AuthenticationModal from './AuthenticationModal'
 
 class NavBar extends Component {
+
+  handleSignInClick = () => {
+    this.props.openAuthModal("signin");
+  }
+
+  handleRegistrationClick = () => {
+    this.props.openAuthModal("register");
+  }
 
   render() {
     let FlavorHubStyles = {
@@ -32,11 +41,11 @@ class NavBar extends Component {
               <SearchBar flex={1}/>
             }
 
-            <Button className="navBarLogin" size="small" variant="raised">Sign in</Button>
-            <Button className="navBarRegister" size="small" variant="raised">Register</Button>
+            <Button className="navBarLogin" size="small" variant="raised" onClick={this.handleSignInClick}>Sign in</Button>
+            <Button className="navBarRegister" size="small" variant="raised" onClick={this.handleRegistrationClick}>Register</Button>
          </Toolbar>
        </AppBar>
-   );
+   )
   }
 }
 
