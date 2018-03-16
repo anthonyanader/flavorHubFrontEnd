@@ -8,8 +8,10 @@ import Button from 'material-ui/Button';
 import Grid from 'material-ui/Grid';
 import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
 import NavBar from './layouts/NavBar';
-import SearchBar from './layouts/SearchBar';
+import MiddleNavBar from './layouts/MiddleNavBar';
 import Restaurant from './components/Restaurant';
+import SearchBar from './layouts/SearchBar';
+
 
 const imgArray = [
   "https://www.pixelstalk.net/wp-content/uploads/2016/08/Food-Images-For-Desktop.jpg",
@@ -68,6 +70,9 @@ class RestaurantContentArea extends Component {
               <Typography className="restaurantContentAreaLocations">X locations</Typography>
             </CardContent>
           </Card>
+        </div>
+        <div>
+          <MiddleNavBar/>
         </div>
       </div>
     )
