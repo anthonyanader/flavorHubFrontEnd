@@ -6,6 +6,7 @@ import Typography from 'material-ui/Typography';
 import PinDrop from 'material-ui-icons/PinDrop';
 import RestaurantMenu from 'material-ui-icons/RestaurantMenu';
 import RateReview from 'material-ui-icons/RateReview';
+import LocationGrid from '../components/LocationGrid';
 
 class TabContainer extends Component {
   constructor(props) {
@@ -15,7 +16,7 @@ class TabContainer extends Component {
       children: PropTypes.node.isRequired
     }
   }
-  
+
   render() {
     return (
       <Typography component="div" style={{ padding: 8 * 3 }}>
@@ -39,19 +40,19 @@ class MiddleNavBar extends Component {
     const { value } = this.state;
 
     return(
-      <div>
+      <div className="midNavBarContainer">
         <Paper position="static" color="default">
           <Tabs
             value={value}
             onChange={this.handleChange}
             centered = {true}
           >
-            <Tab icon={<PinDrop/>}label="Locations" />
+            <Tab icon={<PinDrop/>} label="Locations" />
             <Tab icon={<RestaurantMenu/>} label="Menu" />
-            <Tab icon={<RateReview/>}label="Reviews"/>
+            <Tab icon={<RateReview/>} label="Reviews"/>
           </Tabs>
         </Paper>
-        {value === 0 && <TabContainer>Item One</TabContainer>}
+        {value === 0 && <TabContainer><LocationGrid/></TabContainer>}
         {value === 1 && <TabContainer>Item Two</TabContainer>}
         {value === 2 && <TabContainer>Item Three</TabContainer>}
       </div>
