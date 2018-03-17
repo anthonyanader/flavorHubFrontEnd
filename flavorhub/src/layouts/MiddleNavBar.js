@@ -7,6 +7,7 @@ import PinDrop from 'material-ui-icons/PinDrop';
 import RestaurantMenu from 'material-ui-icons/RestaurantMenu';
 import RateReview from 'material-ui-icons/RateReview';
 import LocationGrid from '../components/LocationGrid';
+import Menu from '../components/Menu';
 
 class TabContainer extends Component {
   constructor(props) {
@@ -53,7 +54,7 @@ class MiddleNavBar extends Component {
           </Tabs>
         </Paper>
         {value === 0 && <TabContainer><LocationGrid/></TabContainer>}
-        {value === 1 && <TabContainer>Item Two</TabContainer>}
+        {value === 1 && <TabContainer><Menu/></TabContainer>}
         {value === 2 && <TabContainer>Item Three</TabContainer>}
       </div>
     )
