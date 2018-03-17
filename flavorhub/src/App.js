@@ -140,7 +140,7 @@ class App extends Component {
       'type': 'register'
     }
   }
-
+  
   onBackButtonEvent = (e) => {
     e.preventDefault();
     this.contentChange('/');
