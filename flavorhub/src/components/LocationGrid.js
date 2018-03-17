@@ -32,21 +32,12 @@ class LocationCard extends Component{
           />
           <CardContent>
             <Typography variant="headline" component="h2">
-                Map Location
+                City
             </Typography>
             <Typography component="p">
-              Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-              across all continents except Antarctica
+            44 Shirley Ave. West Chicago, IL 60185
             </Typography>
           </CardContent>
-          <CardActions>
-            <Button size="small" color="primary">
-              Share
-            </Button>
-            <Button size="small" color="primary">
-              Learn More
-            </Button>
-          </CardActions>
         </Card>
       </div>
     )
