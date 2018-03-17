@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './Restaurant.css';
+import './styles/Restaurant.css';
 import NavBar from '../layouts/NavBar';
 
 

@@ -77,9 +77,7 @@ class RestaurantContentArea extends Component {
             </CardContent>
           </Card>
         </div>
-        <div>
-          <MiddleNavBar/>
-        </div>
+        <MiddleNavBar/>
       </div>
     )
   }
