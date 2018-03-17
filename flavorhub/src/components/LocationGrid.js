@@ -20,9 +20,7 @@ class LocationGrid extends Component {
 }
 
 class LocationCard extends Component{
-
   render(){
-
     return(
       <div>
         <Card style={{width:"350px"}}>
