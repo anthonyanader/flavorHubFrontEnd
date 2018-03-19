@@ -2,16 +2,15 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
 import Route from 'react-router-dom/Route';
 import './App.css';
-import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
-import Button from 'material-ui/Button';
 import Grid from 'material-ui/Grid';
-import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
+import Card, {CardContent, CardMedia } from 'material-ui/Card';
 import NavBar from './layouts/NavBar';
 import MiddleNavBar from './layouts/MiddleNavBar';
-import Restaurant from './components/Restaurant';
 import SearchBar from './layouts/SearchBar';
 import AuthenticationModal from './layouts/AuthenticationModal';
+import axios from 'axios'
+
 
 const imgArray = [
   "https://www.pixelstalk.net/wp-content/uploads/2016/08/Food-Images-For-Desktop.jpg",
@@ -135,8 +134,39 @@ class App extends Component {
       'displaySearchBar': window.location.pathname !== '/',
       'openRegistration': false,
       'openSignIn': false,
-      'type': 'register'
+      'type': 'register',
+      'userLoggedIn': this.checkToken(this)
     }
+  }
+
+  checkToken = (context) => {
+    let tokenExists = 'JsonToken' in localStorage
+      if (tokenExists) {
+        let token = localStorage.getItem('JsonToken')
+        axios.get('http://localhost:5000/checkToken', {'headers':{'x-access-token': token}}).then(
+          function (response) {
+            if (response.status === 200) {
+              localStorage.clear()
+              localStorage.setItem('JsonToken', token)
+              localStorage.setItem("fname", response.data.fname)
+              localStorage.setItem("lname", response.data.lname)
+              localStorage.setItem("isAdmin", response.data.isAdmin)
+              context.setStateToLoggedIn()
+            }
+          }
+        ).catch(function (error){
+          console.log(error)
+        })
+    }
+    else {
+      return false
+    }
+  }
+
+  setStateToLoggedIn = () => {
+    this.setState({
+      userLoggedIn: true
+    })
   }
 
   onBackButtonEvent = (e) => {
@@ -167,11 +197,18 @@ class App extends Component {
     })
   }
 
+  handleLogout = () => {
+    localStorage.clear()
+    this.setState({
+      'userLoggedIn': false
+    })
+  }
+
   render() {
     return (
       <div className="App">
-        <AuthenticationModal type={this.state.type} open={this.state.openRegistration} onClose={this.closeAuthModal.bind(this)}/>
-        <NavBar displaySearchBar={this.state.displaySearchBar} openAuthModal={this.openAuthModal.bind(this)} contentChange={this.contentChange.bind(this)}/>
+        <AuthenticationModal type={this.state.type} open={this.state.openRegistration} onClose={this.closeAuthModal.bind(this)} setStateToLoggedIn={this.setStateToLoggedIn.bind(this)}/>
+        <NavBar logoutAction={this.handleLogout.bind(this)} loggedInState={this.state.userLoggedIn} displaySearchBar={this.state.displaySearchBar} openAuthModal={this.openAuthModal.bind(this)} contentChange={this.contentChange.bind(this)}/>
         <ContentArea contentChange={this.contentChange.bind(this)}/>
       </div>
     )

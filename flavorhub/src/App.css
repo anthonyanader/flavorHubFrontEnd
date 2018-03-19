@@ -59,6 +59,10 @@
   border-radius: 2px;
 }
 
+.navBarToolBar .navBarAvatar {
+  background-color: salmon;
+}
+
 .navBarToolBar .navBarLogin:hover {
   background-color: #f1f1f1;
 }
