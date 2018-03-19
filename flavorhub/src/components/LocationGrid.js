@@ -1,7 +1,6 @@
 import React, { Component} from 'react';
-import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
+import Card, {CardContent, CardMedia } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
-import Button from 'material-ui/Button';
 import Grid from 'material-ui/Grid';
 import './styles/LocationCard.css'
 
