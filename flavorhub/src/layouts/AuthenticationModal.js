@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import Modal from 'material-ui/Modal';
 import Typography from 'material-ui/Typography';
 import './styles/AuthenticationModal.css';
@@ -23,7 +22,6 @@ class AuthenticationModal extends Component {
   }
 
   componentWillReceiveProps = (nextProps) => {
-    console.log(nextProps)
     this.setState({
       email: "",
       password: "",
@@ -69,50 +67,60 @@ class AuthenticationModal extends Component {
     let context = this
 
     axios.post('http://localhost:5000/register', {
-      username: this.state.username,
+      username: this.state.username.toLowerCase(),
       password: this.state.password,
       email: this.state.email,
-      fname: this.state.fname,
-      lname: this.state.lname
+      fname: this.state.fname.toLowerCase(),
+      lname: this.state.lname.toLowerCase()
     }).then(function (response) {
-      if (response.status == "200"){
-        context.props.onClose()
-        context.setState({
-          email: "",
-          password: "",
-          username: "",
-          fname: "",
-          lname: "",
-          open: false
-        });
+      if (response.status === "200"){
+        let username = context.state.username
+        let password = context.state.password
+        context.handleSignin(username, password, context)
       }
     }).catch(function (error) {
       console.log(error);
     });
   }
 
-  handleSignin = () => {
-    let context = this
-
+  handleSignin = (username, password, context) => {
     axios.post('http://localhost:5000/login', {
-      username: this.state.username,
-      password: this.state.password
+      username: username,
+      password: password
     }).then(function (response) {
-      console.log(response)
-      if (response.status == "200"){
-        context.props.onClose()
-        context.setState({
-          email: "",
-          password: "",
-          username: "",
-          fname: "",
-          lname: "",
-          open: false
-        });
+      if (response.status === 200){
+        context.setGlobalStateToLoggedIn(response.data, context)
       }
     }).catch(function (error) {
       console.log(error);
-    });
+    })
+  }
+
+  setGlobalStateToLoggedIn = (loginToken, context) => {
+
+    axios.get('http://localhost:5000/basicInfo', {'headers':{'x-access-token': loginToken }}).then(
+      function (response) {
+        if (response.status === 200) {
+          localStorage.clear()
+          localStorage.setItem('JsonToken', loginToken)
+          localStorage.setItem("fname", response.data.fname)
+          localStorage.setItem("lname", response.data.lname)
+          localStorage.setItem("isAdmin", response.data.isAdmin)
+          context.setState({
+            email: "",
+            password: "",
+            username: "",
+            fname: "",
+            lname: "",
+            open: false
+          });
+          context.props.onClose()
+          context.props.setStateToLoggedIn()
+        }
+      }
+    ).catch(function (error){
+      console.log(error)
+    })
   }
 
   render() {
@@ -144,7 +152,7 @@ class AuthenticationModal extends Component {
             </form>
            </div>
            <div className="modalButtonContainer">
-              <Button className="modalRegister" onClick={this.props.type === "register" ? this.handleRegister.bind(this) : this.handleSignin.bind(this)} size="small" variant="raised">{this.props.type === "register" ? "Register" : "Sign In"}</Button>
+              <Button className="modalRegister" onClick={this.props.type === "register" ? this.handleRegister.bind(this) : ()=>this.handleSignin(this.state.username, this.state.password, this)} size="small" variant="raised">{this.props.type === "register" ? "Register" : "Sign In"}</Button>
            </div>
          </div>
        </Modal>
