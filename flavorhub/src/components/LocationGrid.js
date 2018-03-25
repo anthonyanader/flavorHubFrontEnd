@@ -5,12 +5,13 @@ import Grid from 'material-ui/Grid';
 import './styles/LocationCard.css'
 
 class LocationGrid extends Component {
+
     render() {
       return(
         <Grid container className="locationGridContainer" justify="center" style={{flexGrow: 1}} spacing={40}>
-          {[0,1,2,3].map(value =>(
-            <Grid key={value} item>
-              <LocationCard/>
+          {this.props.locations.map(location =>(
+            <Grid key={location.address} item>
+              <LocationCard location={location}/>
             </Grid>
           ))}
         </Grid>
@@ -21,7 +22,13 @@ class LocationGrid extends Component {
 class LocationCard extends Component{
 
   render(){
+    let locationCardInfoTagStyle = {
+      fontSize: '17px'
+    }
 
+    let addressStyle = {
+      paddingBottom: '15px'
+    }
     return(
       <div>
         <Card style={{width:"350px"}}>
@@ -30,11 +37,16 @@ class LocationCard extends Component{
             title="RestaurantName"
           />
           <CardContent>
-            <Typography variant="headline" component="h2">
-                City
+            <Typography style={addressStyle} variant="headline" component="h2">
+              {this.props.location.address}
             </Typography>
             <Typography component="p">
-            44 Shirley Ave. West Chicago, IL 60185
+              <span style={locationCardInfoTagStyle}>Manager: </span>
+              {this.props.location.managerName}
+            </Typography>
+            <Typography component="p">
+              <span style={locationCardInfoTagStyle}>Phone number: </span>
+              {this.props.location.phoneNumber}
             </Typography>
           </CardContent>
         </Card>

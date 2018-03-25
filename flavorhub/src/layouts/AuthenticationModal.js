@@ -73,7 +73,7 @@ class AuthenticationModal extends Component {
       fname: this.state.fname.toLowerCase(),
       lname: this.state.lname.toLowerCase()
     }).then(function (response) {
-      if (response.status === "200"){
+      if (response.status === 200){
         let username = context.state.username
         let password = context.state.password
         context.handleSignin(username, password, context)
@@ -98,7 +98,7 @@ class AuthenticationModal extends Component {
 
   setGlobalStateToLoggedIn = (loginToken, context) => {
 
-    axios.get('http://localhost:5000/basicInfo', {'headers':{'x-access-token': loginToken }}).then(
+    axios.get('http://localhost:5000/basic_info', {'headers':{'x-access-token': loginToken }}).then(
       function (response) {
         if (response.status === 200) {
           localStorage.clear()
