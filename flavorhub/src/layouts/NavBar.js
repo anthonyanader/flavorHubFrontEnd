@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
@@ -26,7 +27,7 @@ class NavBar extends Component {
   }
 
   getAvatarName = () => {
-    if (localStorage.getItem('fname') !== null && localStorage.getItem('lname') !== null) {
+    if ('fname' in localStorage && 'lname' in localStorage) {
         return(localStorage.getItem('fname')[0].toUpperCase()+localStorage.getItem('lname')[0].toUpperCase())
     }
 
@@ -36,14 +37,17 @@ class NavBar extends Component {
   }
 
   handleAvatarClick = event => {
-    this.setState({ activeTag: event.currentTarget });
+    this.setState({activeTag: event.currentTarget})
   }
 
   handleAvatarClose = () => {
-    this.setState({ activeTag: null });
+    this.setState({activeTag: null})
   }
 
   handleLogout = () => {
+    this.setState({
+      activeTag: null
+    })
     this.props.logoutAction()
   }
 
@@ -61,15 +65,15 @@ class NavBar extends Component {
     return (
       <AppBar className="navBarAppBar" position="static">
          <Toolbar className="navBarToolBar">
-           <a href='/' style={FlavorHubAnchorStyles} onClick={()=>this.props.contentChange('/')}>
+           <Link to='/' style={FlavorHubAnchorStyles} onClick={()=>this.props.contentChange('/')}>
              <Typography className="navBarLogo" variant="title" style={FlavorHubStyles}>
                  <span className="navBarFlavorLogo">Flavor</span>
                  <span className="navBarHubLogo">Hub</span>
              </Typography>
-           </a>
+           </Link>
 
             {(this.props.displaySearchBar) &&
-              <SearchBar flex={1}/>
+              <SearchBar displayFilter={false} flex={1}/>
             }
 
             {(!this.props.loggedInState) &&

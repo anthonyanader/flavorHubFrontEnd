@@ -1,0 +1,76 @@
+.filterModal {
+  position: absolute;
+  padding: 30px;
+  left: 50%;
+  right: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  background-color: white;
+  outline: none;
+  border-radius: 0.1em;
+}
+
+.modalNavBarLogo {
+  font-size: 30px !important;
+  display: flex !important;
+  justify-content: center;
+  padding: 0 0 20px 0;
+}
+
+.modalNavBarFlavorLogo {
+  color: #262626;
+}
+
+.modalNavBarHubLogo {
+  color: salmon;
+}
+
+.modalInputContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.modalInput {
+  padding: 10px;
+  margin: 0 20px 20px 0;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  border-style: none;
+  border-bottom: 1px solid #f1f1f1;
+  font-size: 15px;
+
+  -webkit-transition: border-bottom .35s ease-in-out;
+  transition: border-bottom .35s ease-in-out;
+}
+
+.modalInput:focus {
+  outline: none;
+  border-bottom: 1px solid salmon;
+}
+
+.modalAddCuisineName {
+  margin: 0 10px 0 10px !important;
+  background-color: black !important;
+  color: white !important;
+  text-transform: none !important;
+  font-size: 15px !important;
+}
+
+.modalAddFilter {
+  margin: 0 10px 0 10px !important;
+  background-color: black !important;
+  color: white !important;
+  text-transform: none !important;
+  font-size: 15px !important;
+}
+
+.modalButtonContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.cuisinesChip {
+  min-width: 100px;
+  max-width: 150px;
+  margin: 15px 0 0 0 !important;
+}

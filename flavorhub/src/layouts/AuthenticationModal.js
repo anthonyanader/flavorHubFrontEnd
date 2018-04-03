@@ -29,7 +29,7 @@ class AuthenticationModal extends Component {
       fname: "",
       lname: "",
       open: nextProps['open']
-    });
+    })
 }
 
   handleEmailChange = (e) => {
@@ -73,7 +73,7 @@ class AuthenticationModal extends Component {
       fname: this.state.fname.toLowerCase(),
       lname: this.state.lname.toLowerCase()
     }).then(function (response) {
-      if (response.status === "200"){
+      if (response.status === 200){
         let username = context.state.username
         let password = context.state.password
         context.handleSignin(username, password, context)
@@ -98,7 +98,7 @@ class AuthenticationModal extends Component {
 
   setGlobalStateToLoggedIn = (loginToken, context) => {
 
-    axios.get('http://localhost:5000/basicInfo', {'headers':{'x-access-token': loginToken }}).then(
+    axios.get('http://localhost:5000/basic_info', {'headers':{'x-access-token': loginToken }}).then(
       function (response) {
         if (response.status === 200) {
           localStorage.clear()
@@ -145,10 +145,10 @@ class AuthenticationModal extends Component {
                   <input className="modalInput" type="text" name="restaurantSearch" placeholder="Last name" onChange={this.handleLnameChange}/>
                 }
                 {(this.props.type === "register") &&
-                  <input className="modalInput" type="text" name="restaurantSearch" placeholder="Email" onChange={this.handleEmailChange}/>
+                  <input className="modalInput" type="email" name="restaurantSearch" placeholder="Email" onChange={this.handleEmailChange}/>
                 }
                 <input className="modalInput" type="text" name="restaurantSearch" placeholder="Username" onChange={this.handleUsernameChange}/>
-                <input className="modalInput" type="text" name="restaurantSearch" placeholder="Password" onChange={this.handlePasswordChange}/>
+                <input className="modalInput" type="password" name="restaurantSearch" placeholder="Password" onChange={this.handlePasswordChange}/>
             </form>
            </div>
            <div className="modalButtonContainer">
