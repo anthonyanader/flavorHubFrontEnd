@@ -10,6 +10,7 @@ import RateReview from 'material-ui-icons/RateReview';
 import LocationGrid from '../components/LocationGrid';
 import MenuTable from '../components/MenuTable';
 import EditPage from '../components/EditPage';
+import ReviewPanel from '../components/ReviewPanel';
 
 class TabContainer extends Component {
   constructor(props) {
@@ -72,7 +73,7 @@ class MiddleNavBar extends Component {
         </Paper>
         {value === 0 && <TabContainer><LocationGrid locations={this.props.locations}/></TabContainer>}
         {value === 1 && <TabContainer><MenuTable admin={this.props.admin} restaurantName={this.props.restaurantName}/></TabContainer>}
-        {value === 2 && <TabContainer><div/></TabContainer>}
+        {value === 2 && <TabContainer><ReviewPanel restaurantName={this.props.restaurantName}/></TabContainer>}
         {(value === 3 && this.props.admin) && <TabContainer><EditPage restaurantName={this.props.restaurantName}/></TabContainer>}
       </div>
     )
