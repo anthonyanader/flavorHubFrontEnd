@@ -31,12 +31,24 @@ class TabContainer extends Component {
 
 
 class MiddleNavBar extends Component {
-  state = {
-    value: 0
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      value: 0
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(!nextProps['admin'] && this.state['value'] === 3) {
+      this.setState({
+        value: 0
+      })
+    }
   }
 
   handleChange = (event, value) => {
-    this.setState({ value });
+    this.setState({ value })
   }
 
   render(){
@@ -61,7 +73,7 @@ class MiddleNavBar extends Component {
         {value === 0 && <TabContainer><LocationGrid locations={this.props.locations}/></TabContainer>}
         {value === 1 && <TabContainer><MenuTable admin={this.props.admin} restaurantName={this.props.restaurantName}/></TabContainer>}
         {value === 2 && <TabContainer><div/></TabContainer>}
-        {value === 2 && <TabContainer><EditPage/></TabContainer>}
+        {(value === 3 && this.props.admin) && <TabContainer><EditPage restaurantName={this.props.restaurantName}/></TabContainer>}
       </div>
     )
   }

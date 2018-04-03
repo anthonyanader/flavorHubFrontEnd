@@ -29,7 +29,7 @@ class AuthenticationModal extends Component {
       fname: "",
       lname: "",
       open: nextProps['open']
-    });
+    })
 }
 
   handleEmailChange = (e) => {
@@ -145,10 +145,10 @@ class AuthenticationModal extends Component {
                   <input className="modalInput" type="text" name="restaurantSearch" placeholder="Last name" onChange={this.handleLnameChange}/>
                 }
                 {(this.props.type === "register") &&
-                  <input className="modalInput" type="text" name="restaurantSearch" placeholder="Email" onChange={this.handleEmailChange}/>
+                  <input className="modalInput" type="email" name="restaurantSearch" placeholder="Email" onChange={this.handleEmailChange}/>
                 }
                 <input className="modalInput" type="text" name="restaurantSearch" placeholder="Username" onChange={this.handleUsernameChange}/>
-                <input className="modalInput" type="text" name="restaurantSearch" placeholder="Password" onChange={this.handlePasswordChange}/>
+                <input className="modalInput" type="password" name="restaurantSearch" placeholder="Password" onChange={this.handlePasswordChange}/>
             </form>
            </div>
            <div className="modalButtonContainer">

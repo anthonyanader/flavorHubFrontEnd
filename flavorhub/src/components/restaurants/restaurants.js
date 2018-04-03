@@ -17,7 +17,8 @@ class RestaurantGrid extends Component {
     this.state = {
       'restaurants': [],
       'page': 0,
-      'hasMore':true
+      'hasMore':true,
+      'filters': props.filters
     }
     // this.getRestaurants(this)
   }
@@ -57,20 +58,84 @@ class RestaurantGrid extends Component {
   }
 
   render() {
+    let mainCount = 0
+    let starterCount = 0
+    let desertCount = 0
 
-    var cards = []
-    this.state.restaurants.map((restaurant, i) => {
-        cards.push(
-          <Grid key={restaurant.name} item>
-            <Link to={"/restaurant/"+restaurant.name} style={{textDecoration: "none"}}>
-              <RestaurantCard content={restaurant} contentChange={this.props.contentChange}/>
-            </Link>
-          </Grid>
-        )
-    })
+    let averageObjet = {
+      'main': 0,
+      'starter': 0,
+      'desert': 0
+    }
+    let cards = []
+    if(this.props.filters.length > 0) {
+      for(let filterIndex = 0; filterIndex < this.props.filters.length; filterIndex++) {
+        for(let restaurantIndex = 0; restaurantIndex < this.state.restaurants.length; restaurantIndex++) {
+          if (this.state.restaurants[restaurantIndex].cuisines.includes(this.props.filters[filterIndex])) {
+
+            if(this.state.restaurants[restaurantIndex].averagePrices['main'] != null) {
+              mainCount += 1
+              averageObjet['main'] += parseFloat(this.state.restaurants[restaurantIndex].averagePrices['main'])
+            }
+            if(this.state.restaurants[restaurantIndex].averagePrices['starter'] != null) {
+              starterCount += 1
+              averageObjet['starter'] += parseFloat(this.state.restaurants[restaurantIndex].averagePrices['starter'])
+            }
+
+            if(this.state.restaurants[restaurantIndex].averagePrices['desert'] != null) {
+              desertCount += 1
+              averageObjet['desert'] += parseFloat(this.state.restaurants[restaurantIndex].averagePrices['desert'])
+            }
+            cards.push(
+              <Grid key={restaurantIndex} item>
+                <Link to={"/restaurant/"+this.state.restaurants[restaurantIndex].name} style={{textDecoration: "none"}}>
+                  <RestaurantCard content={this.state.restaurants[restaurantIndex]} contentChange={this.props.contentChange}/>
+                </Link>
+              </Grid>
+          )}
+        }
+      }
+      averageObjet['main'] = averageObjet['main'] > 0 ? (averageObjet['main']/mainCount).toFixed(2) : 0
+      averageObjet['starter'] = averageObjet['starter'] > 0 ? (averageObjet['starter']/starterCount).toFixed(2) : 0
+      averageObjet['desert'] = averageObjet['desert'] > 0 ? (averageObjet['desert']/desertCount).toFixed(2) : 0
+    }
+
+    else {
+      this.state.restaurants.map((restaurant, i) => {
+          cards.push(
+            <Grid key={i} item>
+              <Link to={"/restaurant/"+restaurant.name} style={{textDecoration: "none"}}>
+                <RestaurantCard content={restaurant} contentChange={this.props.contentChange}/>
+              </Link>
+            </Grid>
+          )
+      })
+    }
 
     return (
-      <div style={{}}>
+      <div>
+        {(this.props.filters.length > 0) &&
+          <Grid item xs={12}>
+            <div>
+              <Card style={{'width':'300px','marginLeft':'75px'}}>
+               <CardContent>
+                 <Typography className='' variant="headline" component="h2">
+                   Average Prices
+                 </Typography>
+                 <Typography className='' color="textSecondary">
+                   Main: <span style={{'color': 'green'}}>{averageObjet['main']}</span>$
+                 </Typography>
+                 <Typography className='' color="textSecondary">
+                   starter: <span style={{'color': 'green'}}>{averageObjet['starter']}</span>$
+                 </Typography>
+                 <Typography className='' color="textSecondary">
+                  desert: <span style={{'color': 'green'}}>{averageObjet['desert']}</span>$
+                 </Typography>
+               </CardContent>
+             </Card>
+            </div>
+          </Grid>
+        }
         <InfiniteScroll
           pageStart={0}
           loadMore={() => this.loadRestaurantInfiniteCards(this)}

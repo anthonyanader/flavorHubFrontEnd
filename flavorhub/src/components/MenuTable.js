@@ -15,7 +15,7 @@ import Toolbar from 'material-ui/Toolbar';
 import IconButton from 'material-ui/IconButton';
 import Checkbox from 'material-ui/Checkbox';
 import Paper from 'material-ui/Paper';
-import axios from 'axios'
+import axios from 'axios';
 
 const titleBar = [
   { id: 'name', numeric: false, label: 'Menu item' },
@@ -42,6 +42,7 @@ class MenuTableToolBar extends Component{
   }
 
   deleteSelected = (context, selected) => {
+
     let loginToken = localStorage.getItem('JsonToken')
     axios.post('http://localhost:5000/menuitem/delete',
       {
@@ -55,9 +56,11 @@ class MenuTableToolBar extends Component{
         }
       ).catch(function (error){
         console.log(error)
-      })  }
+      })
+    }
 
   render() {
+
     return (
       <Toolbar
         className=''
@@ -193,8 +196,8 @@ class MenuTable extends Component {
    else {
      menu =
        order === 'desc'
-         ? this.state.menu.sort((a, b) => (a[orderBy].localeCompare(b[orderBy])))
-         : this.state.menu.sort((a, b) => (b[orderBy].localeCompare(a[orderBy])))
+         ? this.state.menu.sort((a, b) => (a[orderBy.toLowerCase()].localeCompare(b[orderBy.toLowerCase()])))
+         : this.state.menu.sort((a, b) => (b[orderBy.toLowerCase()].localeCompare(a[orderBy.toLowerCase()])))
    }
 
 

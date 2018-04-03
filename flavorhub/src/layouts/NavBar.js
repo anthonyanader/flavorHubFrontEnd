@@ -37,7 +37,6 @@ class NavBar extends Component {
   }
 
   handleAvatarClick = event => {
-    console.log(event.currentTarget)
     this.setState({activeTag: event.currentTarget})
   }
 
@@ -74,7 +73,7 @@ class NavBar extends Component {
            </Link>
 
             {(this.props.displaySearchBar) &&
-              <SearchBar flex={1}/>
+              <SearchBar displayFilter={false} flex={1}/>
             }
 
             {(!this.props.loggedInState) &&

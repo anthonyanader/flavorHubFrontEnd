@@ -14,11 +14,38 @@ import axios from 'axios'
 
 
 class SplashContentArea extends Component {
+
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      'filters': []
+    }
+  }
+
+  setFilters = (filters) => {
+    let currentFilters = this.state.filters
+    filters.map((filter) => {
+      if (!currentFilters.includes(filter.toLowerCase())) {
+        currentFilters.push(filter.toLowerCase())
+      }
+    })
+    this.setState({
+      'filters': currentFilters
+    })
+  }
+
+  deleteFilters = (filters) => {
+    this.setState({
+      'filters': filters
+    })
+  }
+
   render() {
     return (
       <div className="splashContentArea">
-        <SearchBar/>
-        <RestaurantGrid contentChange={this.props.clickEvent}/>
+        <SearchBar deleteFilters={this.deleteFilters.bind(this)} filters={this.state.filters} setFilters={this.setFilters.bind(this)} displayFilter={true}/>
+        <RestaurantGrid filters={this.state.filters} contentChange={this.props.contentChange}/>
       </div>
     )
   }
@@ -176,7 +203,7 @@ class App extends Component {
             <AuthenticationModal type={this.state.type} open={this.state.openRegistration} onClose={this.closeAuthModal.bind(this)} setStateToLoggedIn={this.setStateToLoggedIn.bind(this)}/>
             <NavBar logoutAction={this.handleLogout.bind(this)} loggedInState={this.state.userLoggedIn} displaySearchBar={this.state.displaySearchBar} openAuthModal={this.openAuthModal.bind(this)} contentChange={this.contentChange.bind(this)}/>
             <div style={{marginTop: '25px'}}>
-              <Route exact path="/" render={(props) => <SplashContentArea {...props} clickEvent={this.contentChange.bind(this)}/>}/>
+              <Route exact path="/" render={(props) => <SplashContentArea {...props} contentChange={this.contentChange.bind(this)}/>}/>
               <Route path="/restaurant/:restaurantName" render={(props) => <RestaurantContentArea {...props} admin={this.state.userLoggedIn && (localStorage.getItem('isAdmin').toLowerCase() === 'true')}/>}/>
             </div>
           </div>
