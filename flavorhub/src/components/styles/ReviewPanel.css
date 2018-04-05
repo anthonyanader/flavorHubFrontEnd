@@ -1,0 +1,9 @@
+.reviewAvatar {
+  display: inline-flex !important;
+  background-color: salmon !important;
+}
+
+.ratingCardPaper {
+  box-shadow: none !important;
+  border: 1px #E0E0E0 solid;
+}

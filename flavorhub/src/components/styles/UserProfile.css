@@ -1,0 +1,22 @@
+.userProfileToolBarButton {
+  margin: 10px !important;
+}
+
+.modalQueryButtonContainer {
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+}
+
+.queryTableModal {
+  position: absolute;
+  padding: 30px;
+  left: 50%;
+  right: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 850px;
+  background-color: white;
+  outline: none;
+  border-radius: 0.1em;
+}
