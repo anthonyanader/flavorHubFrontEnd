@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {browserHistory} from 'react-router';
 import {Link} from 'react-router-dom';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
@@ -34,6 +35,11 @@ class NavBar extends Component {
     else {
       return ''
     }
+  }
+
+  handleMyAcountClick = () => {
+    browserHistory.push('/user/' + localStorage.getItem('username'))
+    window.location.reload()
   }
 
   handleAvatarClick = event => {
@@ -101,7 +107,7 @@ class NavBar extends Component {
                   open={Boolean(this.state.activeTag)}
                   onClose={this.handleAvatarClose}
                 >
-                <MenuItem onClick={this.handleAvatarClose}>My account</MenuItem>
+                <MenuItem onClick={this.handleMyAcountClick}>My account</MenuItem>
                 <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
               </Menu>
               }

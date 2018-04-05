@@ -9,6 +9,7 @@ import MiddleNavBar from './layouts/MiddleNavBar';
 import SearchBar from './layouts/SearchBar';
 import AuthenticationModal from './layouts/AuthenticationModal';
 import RestaurantGrid from './components/restaurants/restaurants';
+import UserProfile from './components/UserProfile'
 import Chip from 'material-ui/Chip';
 import axios from 'axios'
 
@@ -142,6 +143,7 @@ class App extends Component {
               localStorage.setItem("fname", response.data.fname)
               localStorage.setItem("lname", response.data.lname)
               localStorage.setItem("isAdmin", response.data.isAdmin)
+              localStorage.setItem("username", response.data.username)
               context.setStateToLoggedIn()
             }
           }
@@ -204,8 +206,9 @@ class App extends Component {
             <NavBar logoutAction={this.handleLogout.bind(this)} loggedInState={this.state.userLoggedIn} displaySearchBar={this.state.displaySearchBar} openAuthModal={this.openAuthModal.bind(this)} contentChange={this.contentChange.bind(this)}/>
             <div style={{marginTop: '25px'}}>
               <Route exact path="/" render={(props) => <SplashContentArea {...props} contentChange={this.contentChange.bind(this)}/>}/>
-              <Route path="/restaurant/:restaurantName" render={(props) => <RestaurantContentArea {...props} admin={this.state.userLoggedIn && (localStorage.getItem('isAdmin').toLowerCase() === 'true')}/>}/>
-            </div>
+              <Route path="/restaurant/:restaurantName" render={(props) => <RestaurantContentArea {...props} contentChange={this.contentChange.bind(this)} admin={this.state.userLoggedIn && (localStorage.getItem('isAdmin').toLowerCase() === 'true')}/>}/>
+              <Route path="/user/:username" render={(props) => <UserProfile {...props} contentChange={this.contentChange.bind(this)} admin={this.state.userLoggedIn && (localStorage.getItem('isAdmin').toLowerCase() === 'true')}/>}/>
+          </div>
           </div>
         </Router>
       </div>

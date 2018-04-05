@@ -123,13 +123,13 @@ class RestaurantGrid extends Component {
                    Average Prices
                  </Typography>
                  <Typography className='' color="textSecondary">
-                   Main: <span style={{'color': 'green'}}>{averageObjet['main']}</span>$
+                   Main: $<span style={{'color': 'green'}}>{averageObjet['main']}</span>
                  </Typography>
                  <Typography className='' color="textSecondary">
-                   starter: <span style={{'color': 'green'}}>{averageObjet['starter']}</span>$
+                   Starter: $<span style={{'color': 'green'}}>{averageObjet['starter']}</span>
                  </Typography>
                  <Typography className='' color="textSecondary">
-                  desert: <span style={{'color': 'green'}}>{averageObjet['desert']}</span>$
+                  Dessert: $<span style={{'color': 'green'}}>{averageObjet['desert']}</span>
                  </Typography>
                </CardContent>
              </Card>
