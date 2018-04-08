@@ -12,6 +12,7 @@ import Table, {
   TableRow
 } from 'material-ui/Table';
 import './styles/UserProfile.css';
+import Dropzone from 'react-dropzone';
 import axios from 'axios'
 
 class  UserProfile extends Component {
@@ -25,7 +26,10 @@ class  UserProfile extends Component {
       'openAdminModal': false,
       'openTableModal': false,
       'cols': [],
-      'rows': []
+      'rows': [],
+      'openAddRestaurantModal': false,
+      'restarurantName': '',
+      'imageFileName': ''
     }
     this.getBasicInfo(this)
   }
@@ -62,7 +66,33 @@ class  UserProfile extends Component {
     })
   }
 
+  handleRestaurantNameChange = (e) => {
+    this.setState({
+      'restarurantName': e.target.value
+    })
+  }
+
+  handleSubmitRestaurant = (context) => {
+    console.log('hello')
+  }
+
+  onImageDrop = () => {
+    console.log('hello');
+  }
+
   render() {
+
+    let dropZoneStyle = {
+      'width': '100%',
+      'height': '200px',
+      'borderWidth': '2px',
+      'borderColor': 'rgb(102, 102, 102)',
+      'borderStyle': 'dashed',
+      'borderRadius': '5px',
+      'display': 'flex',
+      'justifyContent': 'center',
+      'alignItems': 'center'
+    }
 
     return (
       <Toolbar>
@@ -80,8 +110,40 @@ class  UserProfile extends Component {
           <Button className="userProfileToolBarButton" size="small" variant="raised" onClick={() => {this.setState({'openAdminModal': true})}}>Admin Panel</Button>
         }
         {(this.props.admin && localStorage.getItem('username') == this.state.username) &&
-          <Button className="userProfileToolBarButton" size="small" variant="raised">Add Restaurant</Button>
+          <Button className="userProfileToolBarButton" size="small" variant="raised" onClick={() => {this.setState({'openAddRestaurantModal': true})}}>Add Restaurant</Button>
         }
+
+        <Modal
+         aria-labelledby="simple-modal-title"
+         aria-describedby="simple-modal-description"
+         open={this.state.openAddRestaurantModal}
+         onClose={() => this.setState({'openAddRestaurantModal': false})}>
+
+         <div className="addRestaurantModal">
+           <Typography className="modalNavBarLogo" variant="title">
+               <span className="modalNavBarFlavorLogo">Flavor</span>
+               <span className="modalNavBarHubLogo">Hub</span>
+           </Typography>
+           <input className="modalInput" type="text" name="restaurantAdd" placeholder="Restaurant name" style={{width:'100%'}} onChange={this.handleRestaurantNameChange}/>
+
+             <Dropzone
+              style={dropZoneStyle}
+              multiple={false}
+              accept="image/*"
+              onDrop={this.onImageDrop.bind(this)}>
+              <Typography>
+                  Drop an image or click to select a file to upload
+              </Typography>
+            </Dropzone>
+            {(this.state.imageFileName !== '') &&
+              <Typography>
+                {this.state.imageFile}
+              </Typography>
+            }
+            <Button className="addRestaurantButton" size="small" variant="raised" onClick={() => {this.handleSubmitRestaurant(this)}}>Add Restaurant</Button>
+         </div>
+
+       </Modal>
 
         <Modal
          aria-labelledby="simple-modal-title"
