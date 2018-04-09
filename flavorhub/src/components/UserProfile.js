@@ -28,8 +28,9 @@ class  UserProfile extends Component {
       'cols': [],
       'rows': [],
       'openAddRestaurantModal': false,
-      'restarurantName': '',
-      'imageFileName': ''
+      'restaurantName': '',
+      'imageFileName': '',
+      'imageFile': null
     }
     this.getBasicInfo(this)
   }
@@ -68,16 +69,37 @@ class  UserProfile extends Component {
 
   handleRestaurantNameChange = (e) => {
     this.setState({
-      'restarurantName': e.target.value
+      'restaurantName': e.target.value
     })
   }
 
   handleSubmitRestaurant = (context) => {
-    console.log('hello')
+    if(this.state.restaurantName !== ''){
+      const formData = new FormData()
+       formData['restaurantPicture']=this.state.imageFile
+      axios.post('http://localhost:5000/add_restaurant', {
+        'name': this.state.restaurantName,
+        'restaurantPicture': formData
+      },{'headers':{'x-access-token': localStorage.getItem('JsonToken')}}).then(function (response) {
+        if (response.status === 200){
+          context.setState({
+            'openAddRestaurantModal': false,
+            'restaurantName': '',
+            'imageFileName': '',
+            'imageFile': null
+          })
+        }
+      }).catch(function (error) {
+        console.log(error);
+      });
+    }
   }
 
-  onImageDrop = () => {
-    console.log('hello');
+  onImageDrop = (files) => {
+    this.setState({
+      'imageFileName': files[0].name,
+      'imageFile': files[0]
+    })
   }
 
   render() {
@@ -131,15 +153,19 @@ class  UserProfile extends Component {
               multiple={false}
               accept="image/*"
               onDrop={this.onImageDrop.bind(this)}>
-              <Typography>
-                  Drop an image or click to select a file to upload
-              </Typography>
+              <div>
+                {(this.state.imageFileName == '') &&
+                  <Typography style={{'paddingTop': '10px'}}>
+                    Drop an image or click to select a file to upload
+                  </Typography>
+                }
+                  {(this.state.imageFileName !== '') &&
+                    <Typography style={{'paddingTop': '10px'}}>
+                      {this.state.imageFileName}
+                    </Typography>
+                  }
+              </div>
             </Dropzone>
-            {(this.state.imageFileName !== '') &&
-              <Typography>
-                {this.state.imageFile}
-              </Typography>
-            }
             <Button className="addRestaurantButton" size="small" variant="raised" onClick={() => {this.handleSubmitRestaurant(this)}}>Add Restaurant</Button>
          </div>
 
