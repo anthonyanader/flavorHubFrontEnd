@@ -106,6 +106,7 @@ class AuthenticationModal extends Component {
           localStorage.setItem("fname", response.data.fname)
           localStorage.setItem("lname", response.data.lname)
           localStorage.setItem("isAdmin", response.data.isAdmin)
+          localStorage.setItem("username", response.data.username)
           context.setState({
             email: "",
             password: "",
