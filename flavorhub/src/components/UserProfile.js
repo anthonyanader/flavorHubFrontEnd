@@ -13,6 +13,8 @@ import Table, {
 } from 'material-ui/Table';
 import './styles/UserProfile.css';
 import Dropzone from 'react-dropzone';
+import FormData from 'form-data'
+import {browserHistory} from 'react-router';
 import axios from 'axios'
 
 class  UserProfile extends Component {
@@ -75,12 +77,15 @@ class  UserProfile extends Component {
 
   handleSubmitRestaurant = (context) => {
     if(this.state.restaurantName !== ''){
-      const formData = new FormData()
-       formData['restaurantPicture']=this.state.imageFile
-      axios.post('http://localhost:5000/add_restaurant', {
-        'name': this.state.restaurantName,
-        'restaurantPicture': formData
-      },{'headers':{'x-access-token': localStorage.getItem('JsonToken')}}).then(function (response) {
+      let formData = new FormData()
+       formData.append('restaurantPicture', this.state.imageFile, this.state.restaurantName)
+       formData.append('name', this.state.restaurantName)
+      axios.post('http://localhost:5000/add_restaurant',
+        formData
+      ,{'headers':{
+        'x-access-token': localStorage.getItem('JsonToken'),
+        'content-type': 'image/jpeg'}
+      }).then(function (response) {
         if (response.status === 200){
           context.setState({
             'openAddRestaurantModal': false,
@@ -100,6 +105,22 @@ class  UserProfile extends Component {
       'imageFileName': files[0].name,
       'imageFile': files[0]
     })
+  }
+
+  deleteUserClick = (context) => {
+    axios.post('http://localhost:5000/user/delete',{
+      'username': this.state.username
+    }
+    ,{'headers':{
+      'x-access-token': localStorage.getItem('JsonToken')}
+    }).then(function (response) {
+      if (response.status === 200){
+        browserHistory.push('/')
+        window.location.reload()
+      }
+    }).catch(function (error) {
+      console.log(error);
+    });
   }
 
   render() {
@@ -133,6 +154,10 @@ class  UserProfile extends Component {
         }
         {(this.props.admin && localStorage.getItem('username') == this.state.username) &&
           <Button className="userProfileToolBarButton" size="small" variant="raised" onClick={() => {this.setState({'openAddRestaurantModal': true})}}>Add Restaurant</Button>
+        }
+
+        {(localStorage.getItem('username') == this.state.username) &&
+          <Button className="userProfileToolBarButton" size="small" variant="raised" onClick={() => this.deleteUserClick(this)}>Delete Account</Button>
         }
 
         <Modal
@@ -183,31 +208,31 @@ class  UserProfile extends Component {
                <span className="modalNavBarHubLogo">Hub</span>
            </Typography>
            <div className="modalQueryButtonContainer">
-              <Button className="modalAddMenuItem" onClick={() => this.queryButtonClick(this, 'f')} size="small" variant="raised">F statistics</Button>
+              <Button className="modalAddMenuItem" onClick={() => this.queryButtonClick(this, 'f')} size="small" variant="raised">statistic 1</Button>
            </div>
            <div className="modalQueryButtonContainer">
-              <Button className="modalAddMenuItem" onClick={() => this.queryButtonClick(this, 'g')} size="small" variant="raised">G statistics</Button>
+              <Button className="modalAddMenuItem" onClick={() => this.queryButtonClick(this, 'g')} size="small" variant="raised">statistic 2</Button>
            </div>
            <div className="modalQueryButtonContainer">
-              <Button className="modalAddMenuItem" onClick={() => this.queryButtonClick(this, 'h')} size="small" variant="raised">H statistics</Button>
+              <Button className="modalAddMenuItem" onClick={() => this.queryButtonClick(this, 'h')} size="small" variant="raised">statistic 3</Button>
            </div>
            <div className="modalQueryButtonContainer">
-              <Button className="modalAddMenuItem" onClick={() => this.queryButtonClick(this, 'i')} size="small" variant="raised">I statistics</Button>
+              <Button className="modalAddMenuItem" onClick={() => this.queryButtonClick(this, 'i')} size="small" variant="raised">statistic 4</Button>
            </div>
            <div className="modalQueryButtonContainer">
-              <Button className="modalAddMenuItem" onClick={() => this.queryButtonClick(this, 'j')} size="small" variant="raised">J statistics</Button>
+              <Button className="modalAddMenuItem" onClick={() => this.queryButtonClick(this, 'j')} size="small" variant="raised">statistic 5</Button>
            </div>
            <div className="modalQueryButtonContainer">
-              <Button className="modalAddMenuItem" onClick={() => this.queryButtonClick(this, 'k')} size="small" variant="raised">K statistics</Button>
+              <Button className="modalAddMenuItem" onClick={() => this.queryButtonClick(this, 'k')} size="small" variant="raised">statistic 6</Button>
            </div>
            <div className="modalQueryButtonContainer">
-              <Button className="modalAddMenuItem" onClick={() => this.queryButtonClick(this, 'l')} size="small" variant="raised">L statistics</Button>
+              <Button className="modalAddMenuItem" onClick={() => this.queryButtonClick(this, 'l')} size="small" variant="raised">statistic 7</Button>
            </div>
            <div className="modalQueryButtonContainer">
-              <Button className="modalAddMenuItem" onClick={() => this.queryButtonClick(this, 'm')} size="small" variant="raised">M statistics</Button>
+              <Button className="modalAddMenuItem" onClick={() => this.queryButtonClick(this, 'm')} size="small" variant="raised">statistic 8</Button>
            </div>
            <div className="modalQueryButtonContainer">
-              <Button className="modalAddMenuItem" onClick={() => this.queryButtonClick(this, 'n')} size="small" variant="raised">N statistics</Button>
+              <Button className="modalAddMenuItem" onClick={() => this.queryButtonClick(this, 'n')} size="small" variant="raised">statistic 9</Button>
            </div>
          </div>
        </Modal>
